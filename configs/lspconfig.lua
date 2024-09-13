@@ -20,3 +20,11 @@ lspconfig.gopls.setup {
     },
   },
 }
+
+-- Add a custom command for importing packages
+vim.api.nvim_create_user_command('GoFuzzyImport', function()
+  vim.lsp.buf.execute_command({
+    command = "gopls.add_import",
+    arguments = { vim.api.nvim_buf_get_name(0) },
+  })
+end, {})

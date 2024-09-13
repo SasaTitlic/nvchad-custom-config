@@ -46,6 +46,10 @@ M.gopher = {
     ["<leader>gsy"] = {
       "<cmd> GoTagAdd yaml <CR>",
       "Add yaml struct tags"
+    },
+    ["<leader>gi"] = {
+      "<cmd>GoFuzzyImport<CR>",
+      "Go Import (fuzzy search)"
     }
   }
 }
@@ -59,6 +63,30 @@ M.telescope = {
       "Find references using Telescope"
     }
   }
+}
+
+M.general = {
+  n = {
+    ["<C-u>"] = { "<C-u>zz", "Scroll up half a page and center" },
+    ["<C-d>"] = { "<C-d>zz", "Scroll down half a page and center" },
+  }
+}
+
+M.fugitive = {
+  n = {
+    ["<leader>gb"] = { "<cmd>Git blame<CR>", "Git blame" },
+  },
+}
+
+M.visual_multi = {
+  plugin = true,
+  n = {
+    ["<Leader>vm"] = { "<Plug>(vm-start-find-under)", "Start VM with word under cursor" },
+    ["<Leader>vM"] = { "<Plug>(vm-select-all)", "Select all occurrences of word under cursor" },
+  },
+  x = {
+    ["<Leader>vm"] = { "<Plug>(vm-find-subword-under)", "Start VM with visual selection" },
+  },
 }
 
 return M
