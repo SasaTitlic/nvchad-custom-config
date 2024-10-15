@@ -15,6 +15,18 @@ M.dap = {
 			end,
 			"Open debugging sidebar",
 		},
+		["<leader>dh"] = {
+			function()
+				require("dap.ui.widgets").hover()
+			end,
+			"View full value of expression under cursor",
+		},
+		["<leader>dp"] = {
+			function()
+				require("dap.ui.widgets").preview()
+			end,
+			"Preview expression (watch)",
+		},
 	},
 }
 
@@ -74,23 +86,7 @@ M.general = {
 			end,
 			"Show and copy relative path",
 		},
-	},
-}
-
-M.fugitive = {
-	n = {
-		["<leader>gb"] = { "<cmd>Git blame<CR>", "Git blame" },
-	},
-}
-
-M.visual_multi = {
-	plugin = true,
-	n = {
-		["<Leader>vm"] = { "<Plug>(vm-start-find-under)", "Start VM with word under cursor" },
-		["<Leader>vM"] = { "<Plug>(vm-select-all)", "Select all occurrences of word under cursor" },
-	},
-	x = {
-		["<Leader>vm"] = { "<Plug>(vm-find-subword-under)", "Start VM with visual selection" },
+		["<leader>gt"] = { "<cmd>GoTestFunc<CR>", "Run Go test function" },
 	},
 }
 
@@ -111,17 +107,6 @@ M.lsp = {
 	},
 }
 
-M.noice = {
-	plugin = true,
-	n = {
-		["<leader>nd"] = {
-			function()
-				require("noice").cmd("dismiss")
-			end,
-			"Dismiss Noice Message",
-		},
-	},
-}
 M.persistence = {
 	n = {
 		["<leader>sr"] = {
@@ -142,14 +127,6 @@ M.persistence = {
 			end,
 			"Don't Save Current Session",
 		},
-	},
-}
-M.json_lsp = {
-	n = {
-		["<leader>jf"] = { "za", "Toggle JSON fold" },
-		["<leader>jF"] = { "zA", "Toggle JSON fold recursively" },
-		["<leader>jc"] = { "zM", "Close all JSON folds" },
-		["<leader>jo"] = { "zR", "Open all JSON folds" },
 	},
 }
 

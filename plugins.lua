@@ -12,15 +12,18 @@ local plugins = {
 				"gopls",
 				"go-debug-adapter",
 				"stylua",
+				"jq",
 			},
 		},
 	},
+	-- debuger
 	{
 		"mfussenegger/nvim-dap",
 		init = function()
 			require("core.utils").load_mappings("dap")
 		end,
 	},
+	-- go debuger
 	{
 		"dreamsofcode-io/nvim-dap-go",
 		ft = "go",
@@ -49,7 +52,7 @@ local plugins = {
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		ft = { "go", "lua" },
+		ft = { "go", "lua", "json" },
 		opts = function()
 			return require("custom.configs.null-ls")
 		end,
@@ -71,7 +74,11 @@ local plugins = {
 		config = function()
 			vim.cmd([[
         let g:go_fmt_command = "gopls"  " or gofumpt
-        let g:go_imports_mode = "goimports"  " or goimports_reviser
+        let g:go_imports_mode = "goimports"
+        let g:go_test_show_name = 1
+        let g:go_test_timeout = '10s'
+        let g:go_test_verbose = 1
+        let g:go_test_prepend_name = 1  " or goimports_reviser
       ]])
 		end,
 		build = ":GoInstallBinaries",
@@ -93,6 +100,7 @@ local plugins = {
 		cmd = "VimBeGood",
 		lazy = true,
 	},
+	-- TODO check this
 	-- {
 	--   "stevearc/oil.nvim",
 	--   opts = {},
@@ -123,10 +131,6 @@ local plugins = {
 	--   end,
 	-- },
 	{
-		"mg979/vim-visual-multi",
-		lazy = false,
-	},
-	{
 		"nvim-telescope/telescope.nvim",
 		opts = function(_, opts)
 			local telescope = require("telescope")
@@ -155,10 +159,7 @@ local plugins = {
 			return opts
 		end,
 	},
-	{
-		"MattesGroeger/vim-bookmarks",
-		lazy = false,
-	},
+	-- TODO check this out
 	{
 		"sindrets/diffview.nvim",
 		lazy = false,
@@ -179,47 +180,7 @@ local plugins = {
 			style = "moon",
 		},
 		config = function()
-			vim.cmd([[colorscheme tokyonight-moon]])
-		end,
-	},
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {
-			routes = {
-				{
-					filter = { event = "notify", find = "No information available" },
-					opts = { skip = true },
-				},
-				{
-					view = "notify",
-					filter = { event = "msg_showmode" },
-				},
-			},
-			presets = {
-				lsp_doc_border = true,
-			},
-			lsp = {
-				override = {
-					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-					["vim.lsp.util.stylize_markdown"] = true,
-					["cmp.entry.get_documentation"] = true,
-				},
-				hover = {
-					enabled = false,
-				},
-				signature = {
-					enabled = false,
-				},
-			},
-		},
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
-		},
-		config = function(_, opts)
-			require("noice").setup(opts)
-			require("core.utils").load_mappings("noice")
+			vim.cmd([[colorscheme tokyonight-night]])
 		end,
 	},
 	{
@@ -245,7 +206,7 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		opts = {
-			ensure_installed = { "lua", "vim", "vimdoc", "go" }, -- add any other languages you use frequently
+			ensure_installed = { "lua", "vim", "vimdoc", "go", "json" }, -- add any other languages you use frequently
 			highlight = {
 				enable = true,
 			},
@@ -260,6 +221,29 @@ local plugins = {
 				},
 			},
 		},
+	},
+	-- scope extension
+	{
+		"shellRaining/hlchunk.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			require("hlchunk").setup({
+				chunk = {
+					enable = true,
+					-- ...
+				},
+				line_num = {
+					enable = true,
+				},
+			})
+		end,
+	},
+	{
+		"rafcamlet/nvim-luapad",
+		cmd = "Luapad",
+		config = function()
+			require("luapad").setup()
+		end,
 	},
 }
 
